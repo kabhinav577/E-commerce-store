@@ -6,6 +6,7 @@ import Navbar from './scenes/global/Navbar';
 import ItemDetails from './scenes/itemDetails/ItemDetails';
 import Checkout from './scenes/checkout/Checkout';
 import Confirmation from './scenes/checkout/Confirmation';
+import CartMenu from './scenes/global/CartMenu';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -29,6 +30,7 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="checkout/success" element={<Confirmation />} />
         </Routes>
+        <CartMenu />
       </BrowserRouter>
     </div>
   );
