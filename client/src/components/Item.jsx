@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { IconButton, Box, Typography, useTheme, Button } from '@mui/material';
@@ -6,6 +7,12 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { shades } from '../theme';
 import { addToCart } from '../state';
 import { useNavigate } from 'react-router-dom';
+
+const categoryColor = {
+  newArrivals: '#FF004D',
+  topRated: '#6DA4AA',
+  bestSellers: 'purple',
+};
 
 const Item = ({ item, width }) => {
   const navigate = useNavigate();
@@ -18,15 +25,7 @@ const Item = ({ item, width }) => {
 
   const { category, price, name, image } = item.attributes;
 
-  const {
-    data: {
-      attributes: {
-        formats: {
-          medium: { url },
-        },
-      },
-    },
-  } = image;
+  const imageUrl = image.data.attributes.url;
 
   return (
     <Box width={width}>
@@ -37,11 +36,11 @@ const Item = ({ item, width }) => {
       >
         <img
           alt={item.name}
-          width="300px"
+          width="350px"
           height="400px"
-          src={`http://localhost:1337${url}`}
+          src={`http://localhost:1337${imageUrl}`}
           onClick={() => navigate(`/item/${item.id}`)}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', objectFit: 'contain' }}
         />
         <Box
           display={isHovered ? 'block' : 'none'}
@@ -83,13 +82,15 @@ const Item = ({ item, width }) => {
       </Box>
 
       <Box mt="3px">
-        <Typography variant="subtitle2">
+        <Typography variant="subtitle2" sx={{ color: categoryColor[category] }}>
           {category
             .replace(/([A-Z])/g, '$1')
             .replace(/^./, (str) => str.toUpperCase())}
         </Typography>
-        <Typography>{name}</Typography>
-        <Typography fontWeight="bold">${price}</Typography>
+        <Typography variant="h4">{name}</Typography>
+        <Typography fontWeight="bold" color={shades.primary[400]}>
+          ${price}
+        </Typography>
       </Box>
     </Box>
   );
