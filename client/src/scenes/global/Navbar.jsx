@@ -45,6 +45,7 @@ const Navbar = () => {
             },
           }}
           color={shades.secondary[500]}
+          fontSize={24}
         >
           TechMart
         </Box>
