@@ -14,7 +14,7 @@ export const cartSlice = createSlice({
       state.isCartOpen = !state.isCartOpen;
     },
     addToCart: (state, action) => {
-      state.cart = [...state.cart, action.payload];
+      state.cart = [...state.cart, action.payload.item];
     },
     setItems: (state, action) => {
       state.items = action.payload;

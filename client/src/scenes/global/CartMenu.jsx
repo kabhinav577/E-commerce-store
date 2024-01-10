@@ -26,15 +26,10 @@ const CartMenu = () => {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, item) => {
-    // Check if 'attributes' and 'price' are defined before accessing them
-    if (item.attributes && typeof item.attributes.price === 'number') {
-      return total + item.attributes.price * item.count;
-    } else {
-      return total;
-    }
+    return total + item.count * item?.attributes?.price;
   }, 0);
 
-  console.log(cart);
+  console.log(totalPrice);
 
   return (
     <Box
@@ -68,20 +63,21 @@ const CartMenu = () => {
           {/* Cart List Section  */}
           <Box>
             {cart.map((item) => (
-              <Box key={`${item?.item?.attributes?.name}-${item?.item.id}`}>
+              <Box key={`${item?.item?.attributes?.name}-${item?.id}`}>
                 <FlexBox p="15px 0">
                   <Box flex="1 1 40%">
                     <img
                       alt={item?.attributes?.name}
                       width="123px"
                       height="164px"
-                      src={`http://localhost:1337${item?.item?.attributes?.image?.data?.attributes?.formats?.thumbnail.url}`}
+                      src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.url}`}
+                      style={{ cursor: 'pointer', objectFit: 'contain' }}
                     />
                   </Box>
                   <Box flex="1 1 60%">
                     <FlexBox mb="5px">
                       <Typography fontWeight="bold">
-                        {item?.item?.attributes?.name}
+                        {item?.attributes?.name}
                       </Typography>
                       <IconButton
                         onClick={() =>
@@ -92,7 +88,7 @@ const CartMenu = () => {
                       </IconButton>
                     </FlexBox>
                     <Box>
-                      {item?.item?.attributes?.shortDescription?.map(
+                      {item?.attributes?.shortDescription?.map(
                         (paragraph, i) => (
                           <Typography key={i} sx={{ mt: '10px' }}>
                             {paragraph.children
@@ -115,7 +111,7 @@ const CartMenu = () => {
                         >
                           <RemoveIcon />
                         </IconButton>
-                        <Typography>{item?.item.count}</Typography>
+                        <Typography>{item?.count}</Typography>
                         <IconButton
                           onClick={() =>
                             dispatch(increaseCount({ id: item.id }))
@@ -125,7 +121,7 @@ const CartMenu = () => {
                         </IconButton>
                       </Box>
                       <Typography fontWeight="bold">
-                        ${item.attributes?.price}
+                        $ {item?.attributes?.price}
                       </Typography>
                     </FlexBox>
                   </Box>
@@ -139,7 +135,7 @@ const CartMenu = () => {
           <Box m="20px 0">
             <FlexBox m="20px 0">
               <Typography fontWeight="bold">SUBTOTAL</Typography>
-              <Typography fontWeight="bold">${totalPrice}</Typography>
+              <Typography fontWeight="bold">$ {totalPrice}</Typography>
             </FlexBox>
             <Button
               sx={{
