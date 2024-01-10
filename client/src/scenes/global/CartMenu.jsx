@@ -26,8 +26,15 @@ const CartMenu = () => {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, item) => {
-    return total + item.attributes.price * item.count;
+    // Check if 'attributes' and 'price' are defined before accessing them
+    if (item.attributes && typeof item.attributes.price === 'number') {
+      return total + item.attributes.price * item.count;
+    } else {
+      return total;
+    }
   }, 0);
+
+  console.log(cart);
 
   return (
     <Box
@@ -60,23 +67,21 @@ const CartMenu = () => {
 
           {/* Cart List Section  */}
           <Box>
-            {cart?.map((item) => (
-              <Box key={`${item.attributes.name}-${item.id}`}>
-                <FlexBox padding="15px 0">
+            {cart.map((item) => (
+              <Box key={`${item?.item?.attributes?.name}-${item?.item.id}`}>
+                <FlexBox p="15px 0">
                   <Box flex="1 1 40%">
                     <img
-                      alt={item?.name}
+                      alt={item?.attributes?.name}
                       width="123px"
                       height="164px"
-                      style={{ objectFit: 'cover' }}
-                      src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                      src={`http://localhost:1337${item?.item?.attributes?.image?.data?.attributes?.formats?.thumbnail.url}`}
                     />
                   </Box>
                   <Box flex="1 1 60%">
-                    {/* NAME AND REMOVE BUTTON */}
                     <FlexBox mb="5px">
                       <Typography fontWeight="bold">
-                        {item.attributes.name}
+                        {item?.item?.attributes?.name}
                       </Typography>
                       <IconButton
                         onClick={() =>
@@ -86,9 +91,17 @@ const CartMenu = () => {
                         <CloseIcon />
                       </IconButton>
                     </FlexBox>
-                    <Typography>{item.attributes.shortDescription}</Typography>
-
-                    {/* AMOUNT INC or DEC BUTTON */}
+                    <Box>
+                      {item?.item?.attributes?.shortDescription?.map(
+                        (paragraph, i) => (
+                          <Typography key={i} sx={{ mt: '10px' }}>
+                            {paragraph.children
+                              .map((child) => child.text)
+                              .join(' ')}
+                          </Typography>
+                        )
+                      )}
+                    </Box>
                     <FlexBox m="15px 0">
                       <Box
                         display="flex"
@@ -102,7 +115,7 @@ const CartMenu = () => {
                         >
                           <RemoveIcon />
                         </IconButton>
-                        <Typography>{item.count}</Typography>
+                        <Typography>{item?.item.count}</Typography>
                         <IconButton
                           onClick={() =>
                             dispatch(increaseCount({ id: item.id }))
@@ -111,9 +124,8 @@ const CartMenu = () => {
                           <AddIcon />
                         </IconButton>
                       </Box>
-                      {/* PRICE */}
                       <Typography fontWeight="bold">
-                        ${item.attributes.price}
+                        ${item.attributes?.price}
                       </Typography>
                     </FlexBox>
                   </Box>
