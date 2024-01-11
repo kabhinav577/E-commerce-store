@@ -29,8 +29,6 @@ const CartMenu = () => {
     return total + item.count * item?.attributes?.price;
   }, 0);
 
-  console.log(totalPrice);
-
   return (
     <Box
       display={isCartOpen ? 'block' : 'none'}

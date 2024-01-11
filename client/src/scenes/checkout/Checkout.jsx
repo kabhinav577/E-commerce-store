@@ -182,17 +182,17 @@ const Checkout = () => {
                 />
               )}
               <Box display="flex" justifyContent="space-between" gap="50px">
-                {isSecondStep && (
+                {!isFirstStep && (
                   <Button
                     fullWidth
                     color="primary"
                     variant="contained"
                     sx={{
-                      backgroundColor: shades.primary[300],
+                      backgroundColor: shades.primary[200],
                       boxShadow: 'none',
                       color: 'white',
+                      borderRadius: 0,
                       padding: '15px 40px',
-                      borderRadius: '0px',
                     }}
                     onClick={() => setActiveStep(activeStep - 1)}
                   >
@@ -208,12 +208,11 @@ const Checkout = () => {
                     backgroundColor: shades.primary[400],
                     boxShadow: 'none',
                     color: 'white',
+                    borderRadius: 0,
                     padding: '15px 40px',
-                    borderRadius: '0px',
                   }}
-                  onClick={() => setActiveStep(activeStep + 1)}
                 >
-                  {isFirstStep ? 'Next' : 'Place order'}
+                  {!isSecondStep ? 'Next' : 'Place Order'}
                 </Button>
               </Box>
             </form>
