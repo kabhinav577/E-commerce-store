@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import AddressForm from './AddressForm';
-// import AddressForm from '.AddressForm';
 
 const Shipping = ({
   values,
@@ -33,6 +32,8 @@ const Shipping = ({
           label="Same for shipping address"
           control={
             <Checkbox
+              defaultChecked
+              value={values.shippingAddress.isSameAddress}
               onChange={() =>
                 setFieldValue(
                   'shippingAddress.isSameAddress',
