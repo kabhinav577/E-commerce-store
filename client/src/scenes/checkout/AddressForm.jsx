@@ -35,7 +35,7 @@ const AddressForm = ({
     >
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
         label="First Name"
         onBlur={handleBlur}
@@ -48,7 +48,7 @@ const AddressForm = ({
       />
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
         label="Last Name"
         onBlur={handleBlur}
@@ -61,7 +61,7 @@ const AddressForm = ({
       />
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
         label="Country"
         onBlur={handleBlur}
@@ -74,7 +74,7 @@ const AddressForm = ({
       />
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
         label="Street Address"
         onBlur={handleBlur}
@@ -87,9 +87,9 @@ const AddressForm = ({
       />
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
-        label="Street 2"
+        label="Street Address (Optional)"
         onBlur={handleBlur}
         onChange={handleChange}
         value={values.street2}
@@ -100,7 +100,7 @@ const AddressForm = ({
       />
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
         label="City"
         onBlur={handleBlur}
@@ -113,7 +113,7 @@ const AddressForm = ({
       />
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
         label="State"
         onBlur={handleBlur}
@@ -126,7 +126,7 @@ const AddressForm = ({
       />
       <TextField
         fullWidth
-        variant="filled"
+        variant="outlined"
         type="text"
         label="Zip Code"
         onBlur={handleBlur}
