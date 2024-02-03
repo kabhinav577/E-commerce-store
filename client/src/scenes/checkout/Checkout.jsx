@@ -112,7 +112,7 @@ const Checkout = () => {
     // actions.resetForm();
   };
 
-  const makePayment = async (values) => {
+  async function makePayment(values) {
     const stripe = await stripePromise;
     const requestBody = {
       userName: [values.firstName, values.lastName].join(' '),
@@ -128,16 +128,19 @@ const Checkout = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody),
     });
+    console.log(response);
 
     const session = await response.json();
+    console.log(session);
+
     await stripe.redirectToCheckout({
       sessionId: session.id,
     });
-  };
+  }
 
   return (
     <Box width="80%" m="100px auto">
-      <Stepper>
+      <Stepper activeStep={activeStep} sx={{ m: '20px 0' }}>
         <Step>
           <StepLabel>Billing</StepLabel>
         </Step>
