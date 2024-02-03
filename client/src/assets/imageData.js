@@ -5,8 +5,8 @@ import Iwatch from '../assets/iwatch-carousel.png';
 import TitaniumIphone from '../assets/titanium-carousel.png';
 
 export const imageData = {
-  Iphone,
   Imac,
+  Iphone,
   Ipad,
   Iwatch,
   TitaniumIphone,
